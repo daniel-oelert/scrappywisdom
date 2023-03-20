@@ -16,7 +16,6 @@ public class App {
     }
 
     public App(String accessToken) {
-        // Try to open keystore file, if not succeeds create new one
         token = accessToken;
     }
 
