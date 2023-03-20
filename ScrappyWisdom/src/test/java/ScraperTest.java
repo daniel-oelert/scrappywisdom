@@ -9,4 +9,6 @@ public class ScraperTest {
     public void testEverythingKek(){
         Assert.assertTrue(true);
     }
+
+
 }
