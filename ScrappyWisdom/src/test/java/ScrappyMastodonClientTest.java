@@ -8,4 +8,6 @@ public class ScrappyMastodonClientTest {
         ScrappyMastodonClient c = new ScrappyMastodonClient();
         c.mastodonClientInit();
     }
+
+
 }
