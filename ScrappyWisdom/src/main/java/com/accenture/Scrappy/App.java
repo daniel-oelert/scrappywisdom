@@ -24,7 +24,7 @@ public class App {
         ScrappyMastodonClient client = new ScrappyMastodonClient();
         var s = new Scraper();
         try {
-            client.postWisdom(s.getQuote());
+            client.postWisdom(s.getQuote(),client.getClient());
         } catch (Exception e) {
             System.out.println("Mastodon Error");
         }

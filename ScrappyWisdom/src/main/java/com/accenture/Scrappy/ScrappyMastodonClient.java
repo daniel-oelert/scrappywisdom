@@ -14,10 +14,11 @@ import java.util.Scanner;
 
 public class ScrappyMastodonClient {
 
+    private MastodonClient client;
 
-    public void mastodonClientInit() {
+    public void mastodonClientInit(String accessToken) {
         var instanceHostname = "mastodon.social";
-        MastodonClient client = new MastodonClient.Builder(instanceHostname).build();
+        client = new MastodonClient.Builder(instanceHostname).accessToken(accessToken).build();
         try {
             var appRegistration = client.apps().createApp(
                     "ScrappyWisdom",
@@ -30,16 +31,13 @@ public class ScrappyMastodonClient {
         }
     }
 
-    public void postWisdom(String postmessage) throws BigBoneRequestException {
-        System.out.println("Enter your Access Token:");
-        Scanner s = new Scanner(System.in);
-        String accessToken = s.nextLine();
-        var instanceHostname = "mastodon.social";
-        MastodonClient client = new MastodonClient.Builder(instanceHostname).accessToken(accessToken).build();
+    public MastodonClient getClient(){
+        return this.client;
+    }
+
+    public void postWisdom(String postmessage, MastodonClient client) throws BigBoneRequestException {
         MastodonRequest<Status> request = client.statuses()
                 .postStatus(postmessage, Status.Visibility.Unlisted);
         Status status = request.execute();
-
-
     }
 }
