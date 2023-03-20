@@ -1,1 +1,2 @@
 # scrappywisdom
+ Very wise!
