@@ -9,14 +9,15 @@ import java.util.Scanner;
 
 public class App {
 
-    String token = null;
+    private String token = null;
 
-    public App() {
-        // Try to open keystore file, if not succeeds create new one
-        initToken("SCRAPPY_TOKEN");
+    public String getToken() {
+        return token;
     }
-    private void initToken(String envVarName) {
-        token = System.getenv(envVarName);
+
+    public App(String accessToken) {
+        // Try to open keystore file, if not succeeds create new one
+        token = accessToken;
     }
 
 

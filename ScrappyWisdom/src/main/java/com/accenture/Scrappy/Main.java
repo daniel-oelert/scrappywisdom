@@ -7,8 +7,7 @@ public class Main {
 
 
     public static void main(String[] args) throws BigBoneRequestException {
-        var app = new App();
-        System.out.println(app.token);
+        var app = new App(args[0]);
         app.run();
 
     }
