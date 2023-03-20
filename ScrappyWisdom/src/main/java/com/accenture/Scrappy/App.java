@@ -23,6 +23,7 @@ public class App {
 
     public void run() {
         ScrappyMastodonClient client = new ScrappyMastodonClient();
+        client.mastodonClientInit(token);
         var s = new Scraper();
         try {
             client.postWisdom(s.getQuote(),client.getClient());
