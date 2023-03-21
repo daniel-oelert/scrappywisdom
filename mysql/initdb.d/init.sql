@@ -10,5 +10,6 @@ FLUSH PRIVILEGES;
 CREATE TABLE IF NOT EXISTS `wisdombase`.`posts` (
 	  `id` int unsigned NOT NULL AUTO_INCREMENT,
 	  `post_content` varchar(225) DEFAULT NULL,
-	  PRIMARY KEY (`id`)
+	  `mastodon_id` BIGINT NOT NULL,  
+	PRIMARY KEY (`id`)
 	);
