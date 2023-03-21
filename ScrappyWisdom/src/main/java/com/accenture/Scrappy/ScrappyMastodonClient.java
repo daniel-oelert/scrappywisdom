@@ -16,6 +16,8 @@ public class ScrappyMastodonClient {
 
     private MastodonClient client;
 
+
+
     public void mastodonClientInit(String accessToken) {
         var instanceHostname = "mastodon.social";
         client = new MastodonClient.Builder(instanceHostname).accessToken(accessToken).build();
@@ -40,4 +42,5 @@ public class ScrappyMastodonClient {
                 .postStatus(postmessage, Status.Visibility.Unlisted);
         Status status = request.execute();
     }
+
 }
