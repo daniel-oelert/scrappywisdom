@@ -13,9 +13,11 @@ public class Connector {
         connectionProps.put("password", "secret");
         Connection conn = null;
 
-        conn = DriverManager.getConnection(
-                "jdbc:mysql://127.0.0.1:3306/wisdombase",
-                connectionProps);
+
+            conn = DriverManager.getConnection(
+                    "jdbc:mysql://127.0.0.1:3306/wisdombase",
+                    connectionProps);
+
 
         System.out.println("Connected to database");
         return conn;
