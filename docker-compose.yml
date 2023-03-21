@@ -1,0 +1,15 @@
+version: "3.9"
+services:
+  # web:
+  #   build: .
+  #   ports:
+  #     - "8000:5000"
+  mysql:
+    image: "mysql/mysql-server:8.0"
+    volumes:
+      - ./mysql/conf.d:/etc/mysql/conf.d
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/initdb.d:/docker-entrypoint-initdb.d
+    ports:
+      - "3306:3306"
+    container_name: scrappywisdom_mysql 
