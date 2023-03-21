@@ -6,6 +6,8 @@ import java.util.List;
 
 public class App {
 
+    private final ScrappyMastodonClient mastodonClient;
+    private final WisdomBaseClient dbClient;
     private String token = null;
     private Connection connection = null;
 
@@ -18,34 +20,38 @@ public class App {
         Connector connector = new Connector();
         try {
             connection = connector.getConnection();
-        }catch(SQLException e){
+        } catch (SQLException e) {
             throw new RuntimeException(e);
         }
+        mastodonClient = new ScrappyMastodonClient();
+        dbClient = new WisdomBaseClient();
+        mastodonClient.mastodonClientInit(token);
 
     }
 
 
     public void post() {
 
-        ScrappyMastodonClient client = new ScrappyMastodonClient();
-        WisdomBaseClient baseClient = new WisdomBaseClient();
-        client.mastodonClientInit(token);
+
         var s = new Scraper();
         String content = null;
         try {
             content = s.getQuote();
-            long id =client.postWisdom(content,client.getClient());
-            baseClient.postToWisdomBase(connection,content,id);
+            long id = mastodonClient.postWisdom(content, mastodonClient.getClient());
+            dbClient.postToWisdomBase(connection, content, id);
         } catch (Exception e) {
             System.out.println("Mastodon Error");
         }
     }
+
     public void stats() {
-        ScrappyMastodonClient client = new ScrappyMastodonClient();
-        WisdomBaseClient baseClient = new WisdomBaseClient();
-        List<MastodonPost> entries = baseClient.getStats(connection);
-        for (MastodonPost s: entries){
-            System.out.println(s, client.getFavourites(s));
+        List<MastodonPost> entries = dbClient.getStats(connection);
+        try {
+            for (MastodonPost s : entries) {
+                System.out.println(s.content() + " " + mastodonClient.getFavourites(s));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
         }
     }
 }
