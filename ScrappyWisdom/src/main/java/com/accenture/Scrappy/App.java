@@ -1,13 +1,8 @@
 package com.accenture.Scrappy;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.security.Key;
-import java.security.KeyStore;
 import java.sql.Connection;
 import java.sql.SQLException;
-import java.util.Scanner;
+import java.util.List;
 
 public class App {
 
@@ -30,7 +25,7 @@ public class App {
     }
 
 
-    public void run() {
+    public void post() {
 
         ScrappyMastodonClient client = new ScrappyMastodonClient();
         WisdomBaseClient baseClient = new WisdomBaseClient();
@@ -43,6 +38,14 @@ public class App {
             baseClient.postToWisdomBase(connection,content);
         } catch (Exception e) {
             System.out.println("Mastodon Error");
+        }
+    }
+    public void stats() {
+
+        WisdomBaseClient baseClient = new WisdomBaseClient();
+        List<String> entries = baseClient.getStats(connection);
+        for (String s: entries){
+            System.out.println(s);
         }
     }
 }

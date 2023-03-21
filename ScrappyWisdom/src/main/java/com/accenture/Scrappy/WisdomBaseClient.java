@@ -16,4 +16,24 @@ public class WisdomBaseClient {
         return result;
     }
 
+    public List<String> getStats(Connection conn) {
+        PreparedStatement preparedStatement = null;
+        List<String> entries = new ArrayList<>();
+        try {
+            preparedStatement =
+                    conn.prepareStatement("SELECT * FROM `wisdombase`.`posts`");
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        try {
+            var result = preparedStatement.executeQuery();
+
+            while (result.next()) {
+                entries.add(result.getInt(1) + " " + result.getString(2));
+            }
+        } catch (Exception e) {
+            throw new RuntimeException(e);
+        }
+        return entries;
+    }
 }

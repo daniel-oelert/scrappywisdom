@@ -3,11 +3,8 @@ package com.accenture.Scrappy;
 import picocli.CommandLine;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.Model.CommandSpec;
-import picocli.CommandLine.Parameters;
 import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.Spec;
-
-import social.bigbone.api.exception.BigBoneRequestException;
 
 @Command(name = "scrappywisdom", subcommands = {CommandLine.HelpCommand.class},
         description = "Post wisdom on mastodon")
@@ -28,12 +25,12 @@ public class ScrappyWisdom implements Runnable {
 
     @Command(name = "post", description = "Post more wisdom")
     void post() {
-        app.run();
+        app.post();
     }
 
     @Command(name = "stats", description = "Show stats of previous posts")
     void stats() {
-        System.out.println("To be implemented.");
+        app.stats();
     }
 
     public static void main(String[] args) {
