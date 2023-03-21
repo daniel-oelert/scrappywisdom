@@ -1,12 +1,5 @@
 package com.accenture.Scrappy;
 
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.security.Key;
-import java.security.KeyStore;
-import java.util.Scanner;
-
 public class App {
 
     private String token = null;
@@ -25,7 +18,7 @@ public class App {
         client.mastodonClientInit(token);
         var s = new Scraper();
         try {
-            client.postWisdom(s.getQuote(),client.getClient());
+            client.postWisdom(s.getQuote(), client.getClient());
         } catch (Exception e) {
             System.out.println("Mastodon Error");
         }
