@@ -1,6 +1,9 @@
 # Maven target folder
 target/
 
+# mysql data folder
+mysql/data
+
 # Compiled class file
 *.class
 
