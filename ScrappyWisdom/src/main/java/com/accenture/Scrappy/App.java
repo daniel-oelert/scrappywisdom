@@ -40,7 +40,8 @@ public class App {
             long id = mastodonClient.postWisdom(content, mastodonClient.getClient());
             dbClient.postToWisdomBase(connection, content, id);
         } catch (Exception e) {
-            System.out.println("Mastodon Error");
+            e.printStackTrace();
+            throw new RuntimeException(e);
         }
     }
 

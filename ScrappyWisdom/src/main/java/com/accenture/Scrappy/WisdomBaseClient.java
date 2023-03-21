@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WisdomBaseClient {
-    public int postToWisdomBase(Connection connection, String content, long id) throws SQLException {
+    public int postToWisdomBase(Connection connection, String content, long mastodonId) throws SQLException {
         PreparedStatement preparedStatement =
                 connection.prepareStatement("INSERT INTO posts (post_content,mastodon_id) VALUES (?,?)");
         preparedStatement.setString(1, content);
-        preparedStatement.setLong(2,id);
+        preparedStatement.setLong(2,mastodonId);
         return preparedStatement.executeUpdate();
     }
 
