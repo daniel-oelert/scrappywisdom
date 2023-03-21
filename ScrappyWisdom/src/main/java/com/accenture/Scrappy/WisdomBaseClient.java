@@ -8,28 +8,23 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class WisdomBaseClient {
-    public int postToWisdomBase(Connection connection, String content) throws SQLException {
+    public int postToWisdomBase(Connection connection, String content, long id) throws SQLException {
         PreparedStatement preparedStatement =
-                connection.prepareStatement("INSERT INTO posts (post_content) VALUES (?)");
+                connection.prepareStatement("INSERT INTO posts (post_content,mastodon_id) VALUES (?,?)");
         preparedStatement.setString(1, content);
-        int result = preparedStatement.executeUpdate();
-        return result;
+        preparedStatement.setLong(2,id);
+        return preparedStatement.executeUpdate();
     }
 
-    public List<String> getStats(Connection conn) {
-        PreparedStatement preparedStatement = null;
-        List<String> entries = new ArrayList<>();
+    public List<MastodonPost> getStats(Connection conn) {
+        List<MastodonPost> entries = new ArrayList<>();
         try {
-            preparedStatement =
+            PreparedStatement preparedStatement =
                     conn.prepareStatement("SELECT * FROM `wisdombase`.`posts`");
-        } catch (Exception e) {
-            throw new RuntimeException(e);
-        }
-        try {
-            var result = preparedStatement.executeQuery();
+            var resultSet = preparedStatement.executeQuery();
 
-            while (result.next()) {
-                entries.add(result.getInt(1) + " " + result.getString(2));
+            while (resultSet.next()) {
+                entries.add(new MastodonPost(resultSet.getLong(3),resultSet.getString(2)));
             }
         } catch (Exception e) {
             throw new RuntimeException(e);

@@ -34,18 +34,18 @@ public class App {
         String content = null;
         try {
             content = s.getQuote();
-            client.postWisdom(content,client.getClient());
-            baseClient.postToWisdomBase(connection,content);
+            long id =client.postWisdom(content,client.getClient());
+            baseClient.postToWisdomBase(connection,content,id);
         } catch (Exception e) {
             System.out.println("Mastodon Error");
         }
     }
     public void stats() {
-
+        ScrappyMastodonClient client = new ScrappyMastodonClient();
         WisdomBaseClient baseClient = new WisdomBaseClient();
-        List<String> entries = baseClient.getStats(connection);
-        for (String s: entries){
-            System.out.println(s);
+        List<MastodonPost> entries = baseClient.getStats(connection);
+        for (MastodonPost s: entries){
+            System.out.println(s, client.getFavourites(s));
         }
     }
 }
